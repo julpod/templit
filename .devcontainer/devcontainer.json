@@ -1,0 +1,19 @@
+{
+  "name": "julpod-templit",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "cli",
+  "mounts": ["source=${localWorkspaceFolder},target=/workspace,type=bind"],
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "none",
+  "initializeCommand": "./.devcontainer/etc/update.sh",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installOhMyZshConfig": false,
+      "upgradePackages": false,
+      "username": "node"
+    }
+  }
+}

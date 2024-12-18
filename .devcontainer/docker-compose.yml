@@ -1,0 +1,16 @@
+services:
+  cli:
+    extends:
+      file: services.yml
+      service: cli
+    volumes:
+      - ${PROJECTS_PATH}:/opt/Projects
+
+  pgsql:
+    extends:
+      file: services.yml
+      service: pgsql
+
+networks:
+  awkbit:
+    external: true
