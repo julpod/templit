@@ -13,6 +13,6 @@ mc mb local/myapp-bucket || true
 git config --global --add safe.directory /var/www
 
 # Initialize pm2 apps
-# pm2 start apps.config.yaml
+pm2 start apps.config.yaml
 
 exec "$@"

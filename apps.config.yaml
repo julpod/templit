@@ -1,0 +1,9 @@
+apps:
+  - name: 'next'
+    script: 'npm run dev'
+    env:
+      PORT: 3000
+  - name: 'storybook'
+    script: 'npm run storybook'
+    env:
+      PORT: 6006
