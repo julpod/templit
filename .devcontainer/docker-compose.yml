@@ -3,13 +3,22 @@ services:
     extends:
       file: services.yml
       service: cli
+    labels:
+      # cli (default)
+      - "traefik.enable=true"
+      - "traefik.http.routers.${ID}_cli.entrypoints=websecure"
+      - "traefik.http.routers.${ID}_cli.rule=Host(`${VIRTUAL_HOST}`)"
+      - "traefik.http.routers.${ID}_cli.service=${ID}-cli-service"
+      - "traefik.http.services.${ID}-cli-service.loadbalancer.server.port=3000"
+      - "traefik.http.routers.${ID}_cli.tls=true"
+      # web-ui
+      - "traefik.http.routers.${ID}_ui.entrypoints=websecure"
+      - "traefik.http.routers.${ID}_ui.rule=Host(`ui--${VIRTUAL_HOST}`)"
+      - "traefik.http.routers.${ID}_ui.service=${ID}-ui-service"
+      - "traefik.http.services.${ID}-ui-service.loadbalancer.server.port=6006"
+      - "traefik.http.routers.${ID}_ui.tls=true"
     volumes:
       - ${PROJECTS_PATH}:/opt/Projects
-
-  pgsql:
-    extends:
-      file: services.yml
-      service: pgsql
 
 networks:
   awkbit:

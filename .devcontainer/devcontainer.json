@@ -5,7 +5,19 @@
   "mounts": ["source=${localWorkspaceFolder},target=/workspace,type=bind"],
   "workspaceFolder": "/workspace",
   "shutdownAction": "none",
-  "initializeCommand": "./.devcontainer/etc/update.sh",
+  "initializeCommand": "./.devcontainer/bin/update",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "github.vscode-github-actions",
+        "xabikos.javascriptsnippets",
+        "ms-azuretools.vscode-docker",
+        "vue.volar"
+      ]
+    }
+  },
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": true,

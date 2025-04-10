@@ -2,6 +2,7 @@
 
 # compiled output
 dist
+!apps/awkbit-api/extensions/*/dist
 tmp
 /out-tsc
 
@@ -40,9 +41,13 @@ apps.yml
 Thumbs.db
 
 .nx/cache
+.nx/workspace-data
 
 # Next.js
 .next
+
+# Storybook build
+apps/awkbit-web-ui/storybook-static
 
 # Docksal
 .docksal/etc/nginx/vhosts.conf
@@ -62,3 +67,6 @@ apps/**/uploads
 .devcontainer/data
 .devcontainer/services.yml
 .devcontainer/etc/.zshrc
+.devcontainer/etc/mc/share
+.devcontainer/etc/mc/certs
+.devcontainer/etc/mc/config.json

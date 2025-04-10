@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Install base dependencies
 RUN apk add --no-cache \
@@ -25,13 +25,17 @@ RUN mkdir -p $CAROOT
 COPY etc/mkcert/rootCA.pem $CAROOT/rootCA.pem
 RUN /usr/local/bin/mkcert -install
 
+# Install Minio client
+RUN ARCH=$([ "$(uname -m)" = "aarch64" ] && echo "arm64" || [ "$(uname -m)" = "x86_64" ] && echo "amd64" || uname -m) \
+    && curl -sLO https://dl.min.io/client/mc/release/linux-${ARCH}/mc \
+    && chmod +x ./mc \
+    && mv ./mc /usr/local/bin/mc
+
 # Install additional node packages
 RUN set -e \
   && npm install --location=global n \
   && npm install --location=global nx \
-  && npm install --location=global pnpm \
-  && npm install --location=global @nestjs/cli \
-  && npm install --location=global typeorm
+  && npm install --location=global pm2
 
 # Setup entrypoint
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh

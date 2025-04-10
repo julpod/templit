@@ -1,0 +1,40 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "📦 Bootstrapping devcontainer setup..."
+
+# Load project-specific env vars
+if [[ -f .devcontainer/.env ]]; then
+  . .devcontainer/.env
+else
+  echo "⚠️  .devcontainer/.env not found. Aborting."
+  exit 1
+fi
+
+# Helper to download a file
+download() {
+  local url=$1
+  local dest=$2
+
+  echo "⬇️  Downloading $(basename "$dest")..."
+  if curl --fail-with-body --silent --show-error -L \
+      -H "Authorization: Bearer ${GH_TOKEN}" \
+      -o "$dest" "$url"; then
+    echo "✅ Downloaded to $dest"
+  else
+    echo "❌ Failed to download $dest"
+  fi
+}
+
+# Ensure folders exist
+mkdir -p .devcontainer/etc/mc
+
+# Downloads
+download "https://raw.githubusercontent.com/awkbit/.github/main/.devcontainer/services.yml" \
+         ".devcontainer/services.yml"
+
+download "https://raw.githubusercontent.com/awkbit/.github/main/.devcontainer/etc/.zshrc" \
+         ".devcontainer/etc/.zshrc"
+
+download "https://raw.githubusercontent.com/awkbit/.github/main/.devcontainer/etc/mc/config.json" \
+         ".devcontainer/etc/mc/config.json"

@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+# clean up all node, next and nx caches
+sudo find . \( -type d -name "node_modules" -o -type d \( -path "*/storybook-static" -o -path "*/.next" -o -path "*/.nx" \) \) -prune -exec rm -rf '{}' +
+npm install
